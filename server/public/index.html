@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>simpleURL</title>
     <link rel="stylesheet" href="styles.css">
@@ -10,5 +11,19 @@
     <header>
         <h1>simpleURL - shorter URL for simpler life by CH</h1>
     </header>
+    <main id="app">
+        <form v.on:submit.prevent="createUrl()">
+            <label for="url">URL</label>
+            <input v-model="url" name="url" id="url">
+            <label for="slug">Nom souhaité</label>
+            <input v-model="slug" name="slug" id="slug">
+            <button type="submit">Créer</button>
+        </form>
+        <span v-pre>
+            {{JSON.stringify(created, null, 2)}}
+        </span>
+    </main>
+    <script src="vue.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
