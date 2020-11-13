@@ -11,14 +11,14 @@ require('dotenv').config();
 const db = monk(process.env.MONGO_URI);
 const urls = db.get('urls');
 urls.createIndex({slug: 1}, {unique: true});
-  
+
 const app = express ();
 
 app.use(helmet()); // help secure Express app by setting HTTP headers
 app.use(morgan('tiny')); // HTTP request logger middleware for node.js with minimal output
 app.use(cors()); // middleware that can be used to enable CORS with various options
 app.use(express.json()); // only accepting json data
-app.use(express.static('./public'));
+app.use(express.static('./my-app/dist'));
 
 const schema = yup.object().shape({ // Define format required
     slug: yup.string().trim().matches(/[\w\-]/i),
