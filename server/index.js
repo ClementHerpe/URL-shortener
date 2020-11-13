@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const yup = require ('yup');
 const monk = require ('monk'); // to talk to mongoDB databases
+const path = require('path');
 const {nanoid} = require ('nanoid');
 
 require('dotenv').config();
@@ -18,7 +19,7 @@ app.use(helmet()); // help secure Express app by setting HTTP headers
 app.use(morgan('tiny')); // HTTP request logger middleware for node.js with minimal output
 app.use(cors()); // middleware that can be used to enable CORS with various options
 app.use(express.json()); // only accepting json data
-app.use(express.static('../my-app/dist'));
+app.use(express.static(path.join(__dirname, '../my-app/dist')));
 
 const schema = yup.object().shape({ // Define format required
     slug: yup.string().trim().matches(/[\w\-]/i),
@@ -77,10 +78,6 @@ app.use((error, req, res, next) => {
         message: error.message,
         stack: process.env.NODE_ENV === 'production' ? 'All good' : error.stack,
     })
-});
-
-app.get('/url/id', (req, res) => {
-    // get a short URL by id
 });
 
 const port = process.env.PORT || 3000;
