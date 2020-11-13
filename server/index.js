@@ -19,7 +19,7 @@ app.use(helmet()); // help secure Express app by setting HTTP headers
 app.use(morgan('tiny')); // HTTP request logger middleware for node.js with minimal output
 app.use(cors()); // middleware that can be used to enable CORS with various options
 app.use(express.json()); // only accepting json data
-app.use(express.static(path.join(__dirname, '../my-app/dist')));
+app.use(express.static('../my-app/dist'));
 
 
 
