@@ -20,7 +20,9 @@ app.use(morgan('tiny')); // HTTP request logger middleware for node.js with mini
 app.use(cors()); // middleware that can be used to enable CORS with various options
 app.use(express.json()); // only accepting json data
 // app.use(express.static(path.join(__dirname, '../my-app/dist'))); not working 
-app.use(express.static(__dirname+'../my-app/dist'));
+// app.use(express.static(__dirname+'../my-app/dist')); no working
+// app.use(express.static('../my-app/dist')); not working
+app.use(express.static('/my-app/dist'));
 
 
 const schema = yup.object().shape({ // Define format required
