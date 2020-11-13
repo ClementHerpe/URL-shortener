@@ -29,7 +29,7 @@ export default {
   background-attachment: fixed;
   background-size: cover;
   background-position: top;
-  background-image:url(http://bit.ly/2gPLxZ4);
+  background-image:url('./assets/background.jpeg');
   width: 100%;
   height: 100%;
   font-family: Arial, Helvetica;
