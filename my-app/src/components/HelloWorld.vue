@@ -38,7 +38,7 @@ export default {
           'content-type': 'application/json'
         },
         body: JSON.stringify ({
-          url: `http://${this.url}`,
+          url: this.url,
           slug: this.slug,
         })
       })
@@ -47,7 +47,8 @@ export default {
           this.created = 'Lien crée'
         }
         else {
-          this.created = 'Oups, veuillez réessayer'
+          console.log(res);
+          this.created = 'Oups, veuillez réessayer';
         }
       });
     }
