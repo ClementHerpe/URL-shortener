@@ -21,7 +21,7 @@ app.use(cors()); // middleware that can be used to enable CORS with various opti
 app.use(express.json()); // only accepting json data
 // app.use(express.static(path.join(__dirname, '../my-app/dist'))); not working 
 // app.use(express.static(__dirname+'../my-app/dist')); not working
-app.use(express.static('./dist'));
+app.use(express.static('./my-app/dist'));
 
 const schema = yup.object().shape({ // Define format required
     slug: yup.string().trim().matches(/[\w\-]/i),
