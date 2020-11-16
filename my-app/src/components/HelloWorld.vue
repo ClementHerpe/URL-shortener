@@ -5,7 +5,7 @@
     <form>
       <input v-model="url" name="url" id="url" placeholder="Le lien à simplifer">
       <input v-model="slug" name="slug" id="slug" placeholder="Raccourci souhaité">
-      <div @click="createUrl()" class="ui animated button" tabindex="0">
+      <div id="create--url--button" @click="createUrl()" class="ui animated button" tabindex="0">
         <div class="visible content">Générer mon lien</div>
         <div class="hidden content">
           <i class="right arrow icon"></i>
@@ -13,6 +13,7 @@
       </div>
     </form>
     <div id="result">{{ created }}</div>
+    <button id="copy--url--button" class="ui toggle button invisible" @click="copyLink(`localhost:3000/${this.slug}`)"> Copier </button>
   </div>
 </template>
 
@@ -44,14 +45,26 @@ export default {
       })
       .then((res) => {
         if(res.status === 200) {
-          this.created = 'Lien crée'
+          this.created = `Lien crée et disponible : localhost:3000/${this.slug}`
+          const button = document.getElementById("copy--url--button");
+          button.classList.remove("invisible");
         }
         else {
           console.log(res);
           this.created = 'Oups, veuillez réessayer';
         }
       });
-    }
+    },
+    copyLink (text) {
+      const button = document.getElementById("copy--url--button");
+      button.classList.add("success");
+      var dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+    },
   }
 }
 </script>
@@ -85,7 +98,7 @@ input:focus {
   border: 2px solid #41B883;
 }
 
-.ui.button {
+#create--url--button {
   width: 200px;
   background-color: #41B883;
   margin: 1em auto;
@@ -98,6 +111,18 @@ h1 {
 
 p {
   color: white;
+}
+
+#copy--url--button {
+  margin-top: 1em;
+}
+
+.invisible {
+  display: none;
+}
+
+.ui .button .success {
+  background-color: #41B883;
 }
 
 </style>
