@@ -23,7 +23,6 @@ app.use(express.json()); // only accepting json data
 // app.use(express.static(__dirname+'../my-app/dist')); not working
 app.use(express.static('../my-app/dist'));
 
-
 const schema = yup.object().shape({ // Define format required
     slug: yup.string().trim().matches(/[\w\-]/i),
     url: yup.string().trim().url().required(),
