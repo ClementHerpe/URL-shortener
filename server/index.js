@@ -10,9 +10,7 @@ const {nanoid} = require ('nanoid');
 require('dotenv').config();
 
 const db = monk(process.env.MONGO_URI);
-console.log('database :', db);
 const urls = db.get('urls');
-console.log(' test urls ',db.urls);
 urls.createIndex({slug: 1}, {unique: true});
 
 const app = express ();
@@ -23,7 +21,7 @@ app.use(cors()); // middleware that can be used to enable CORS with various opti
 app.use(express.json()); // only accepting json data
 // app.use(express.static(path.join(__dirname, '../my-app/dist'))); not working 
 // app.use(express.static(__dirname+'../my-app/dist')); not working
-app.use(express.static('./'));
+// app.use(express.static('./'));
 
 const schema = yup.object().shape({ // Define format required
     slug: yup.string().trim().matches(/[\w\-]/i),
@@ -31,7 +29,7 @@ const schema = yup.object().shape({ // Define format required
 })
 
 app.get('/', async(req,res) => {
-    res.send({urls});
+    res.send({message: urls});
 });
 
 app.get('/:id', async (req, res) => {
