@@ -33,7 +33,7 @@ export default {
   methods: {
     async createUrl() {
       console.log(this.url, this.slug);
-      await fetch('https://url-shortener-6z2ca0cn0.vercel.app/url', {
+      await fetch('http://3.83.108.186:3000/url', {
       // await fetch('http://localhost:3000/url', {
         method: 'POST',
         mode : 'no-cors',
