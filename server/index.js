@@ -28,7 +28,7 @@ const schema = yup.object().shape({ // Define format required
     url: yup.string().trim().url().required(),
 })
 
-app.get('/:id', async (req, res) => {
+/* app.get('/:id', async (req, res) => {
     // redirect to given URL
     const {id : slug} = req.params;
     try {
@@ -39,6 +39,15 @@ app.get('/:id', async (req, res) => {
         res.redirect(`/?error=${slug} not found`);
     } catch (error) {
         res.redirect(`/?error=Link no found`);
+    }
+}); */
+
+app.get('/test', async (req, res) => {
+    // test
+    try {
+        res.send ({message :'hello world'});
+    } catch (error) {
+        console.log(error);
     }
 });
 
