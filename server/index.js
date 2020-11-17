@@ -55,11 +55,13 @@ app.post('/url', async (req, res, next) => {
     // create short URL
     console.log('on entre dans le POST');
     let { slug, url } = req.body;
+    console.log('body requete : ', req.body);
     try {
         await schema.validate({
             slug,
             url,
         });
+        console.log('schema validé');
         if (!slug) {
             slug = nanoid(5); // if no slug (since not required) - we generate one
         } else {
@@ -68,6 +70,7 @@ app.post('/url', async (req, res, next) => {
                 throw new Error ('Slug already in use.');
             }
         }
+        console.log('slug vérifié');
         slug = slug.toLowerCase();
         const newUrl = {
             url,
