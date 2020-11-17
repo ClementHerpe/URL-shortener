@@ -55,17 +55,18 @@ app.post('/url', async (req, res, next) => {
     // create short URL
     console.log('on entre dans le POST');
     let { slug, url } = req.body;
-    console.log('body requete : ', req.body);
     try {
         await schema.validate({
             slug,
             url,
         });
+        console.log('slug :', slug, ' url :', url);
         console.log('schema validé');
         if (!slug) {
             slug = nanoid(5); // if no slug (since not required) - we generate one
         } else {
             const existing = await urls.findOne({ slug });
+            console.log('already in DB : ', existing);
             if (existing) {
                 throw new Error ('Slug already in use.');
             }
