@@ -10,7 +10,9 @@ const {nanoid} = require ('nanoid');
 require('dotenv').config();
 
 const db = monk(process.env.MONGO_URI);
+console.log('database: ', db);
 const urls = db.get('urls');
+console.log('urls : ', urls);
 urls.createIndex({slug: 1}, {unique: true});
 
 const app = express ();
@@ -53,7 +55,6 @@ app.get('/:id', async (req, res) => {
 
 app.post('/url', async (req, res, next) => {
     // create short URL
-    console.log('on entre dans le POST');
     let { slug, url } = req.body;
     try {
         await schema.validate({
@@ -61,12 +62,12 @@ app.post('/url', async (req, res, next) => {
             url,
         });
         console.log('slug :', slug, ' url :', url);
-        console.log('schema validé');
         if (!slug) {
             slug = nanoid(5); // if no slug (since not required) - we generate one
         } else {
             console.log('on cherche si le slug est déjà dans la DB');
-            const existing = await urls.findOne({ slug });
+            console.log(urls);
+            const existing = await urls.findOne({ slug }); // C'est là qu'on ne passe pas
             console.log('already in DB : ', existing);
             if (existing) {
                 throw new Error ('Slug already in use.');
