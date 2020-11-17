@@ -6,6 +6,8 @@ const yup = require ('yup');
 const monk = require ('monk'); // to talk to mongoDB databases
 const path = require('path');
 const {nanoid} = require ('nanoid');
+const {parse, stringify} = require('flatted');
+const util = require('util')
 
 require('dotenv').config();
 
@@ -21,16 +23,12 @@ app.use(cors()); // middleware that can be used to enable CORS with various opti
 app.use(express.json()); // only accepting json data
 // app.use(express.static(path.join(__dirname, '../my-app/dist'))); not working 
 // app.use(express.static(__dirname+'../my-app/dist')); not working
-// app.use(express.static('./'));
+app.use(express.static('./'));
 
 const schema = yup.object().shape({ // Define format required
     slug: yup.string().trim().matches(/[\w\-]/i),
     url: yup.string().trim().url().required(),
 })
-
-app.get('/', async(req,res) => {
-    res.send({message: urls});
-});
 
 app.get('/:id', async (req, res) => {
     // redirect to given URL
