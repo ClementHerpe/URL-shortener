@@ -11,7 +11,6 @@ require('dotenv').config();
 
 const db = monk(process.env.MONGO_URI);
 const urls = db.get('urls');
-console.log(urls);
 urls.createIndex({slug: 1}, {unique: true});
 
 const app = express ();
@@ -54,6 +53,7 @@ app.get('/:id', async (req, res) => {
 
 app.post('/url', async (req, res, next) => {
     // create short URL
+    console.log('on entre dans le POST');
     let { slug, url } = req.body;
     try {
         await schema.validate({
@@ -73,6 +73,7 @@ app.post('/url', async (req, res, next) => {
             url,
             slug,
         }
+        console.log('nouvel URL', newUrl)
         const created = await urls.insert(newUrl);
         res.json(created);
     } catch (error) {
