@@ -10,7 +10,10 @@ const {nanoid} = require ('nanoid');
 require('dotenv').config();
 
 const db = monk(process.env.MONGO_URI);
+console.log('database :', db);
 const urls = db.get('urls');
+console.log('urls :', urls);
+console.log(' test urls ',db.urls);
 urls.createIndex({slug: 1}, {unique: true});
 
 const app = express ();
@@ -64,7 +67,6 @@ app.post('/url', async (req, res, next) => {
             slug = nanoid(5); // if no slug (since not required) - we generate one
         } else {
             console.log('on cherche si le slug est déjà dans la DB');
-            console.log(urls.findOne);
             const existing = await urls.findOne({ slug }); // C'est là qu'on ne passe pas
             console.log('already in DB : ', existing);
             if (existing) {
