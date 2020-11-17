@@ -67,7 +67,7 @@ app.post('/url', async (req, res, next) => {
         } else {
             console.log('on cherche si le slug est déjà dans la DB');
             console.log(urls);
-            const existing = await urls.findOne({ slug }); // C'est là qu'on ne passe pas
+            const existing = urls.findOne({ slug }); // C'est là qu'on ne passe pas
             console.log('already in DB : ', existing);
             if (existing) {
                 throw new Error ('Slug already in use.');
