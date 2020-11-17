@@ -65,6 +65,7 @@ app.post('/url', async (req, res, next) => {
         if (!slug) {
             slug = nanoid(5); // if no slug (since not required) - we generate one
         } else {
+            console.log('on cherche si le slug est déjà dans la DB');
             const existing = await urls.findOne({ slug });
             console.log('already in DB : ', existing);
             if (existing) {
